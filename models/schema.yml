@@ -1,5 +1,14 @@
 version: 2
 
+sources:
+    - name: jaffle_shop
+      description : "data source from dbt tutorial"
+      database: dbt-tutorial.
+      schema : jaffle_shop
+      tables:
+        - name : customers
+        - name : orders
+
 models:
   - name: fct_customers
     description: This table contains information of customer transaction
@@ -39,3 +48,11 @@ models:
           - dbt_utils.relationships_where:
               to: ref('stg_customers')
               field: customer_id
+  - name: compare_relation_columns
+    description:  compares the ordinal_position and data_types of columns in two Relations
+  - name: compare_queries
+    description: similiar with compare_relation_columns but usefull if the relation have difference name
+  - name: compare_column_values
+    description: compares a column across two queries, and summarizes how many records match perfectly
+  - name: compare_all_columns
+    description:  test monitors changes data values when code is changed as part of a PR or during development.It sets up a test that will fail if any column values do not match
