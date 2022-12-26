@@ -1,0 +1,9 @@
+{{ 
+  audit_helper.compare_all_columns(
+    a_relation=ref('stg_customers'),
+    b_relation=api.Relation.create(database="dbt-project-2348903", 
+      schema="dbt_project",
+      identifier="stg_customers"), 
+    primary_key='customer_id'
+  ) 
+}}

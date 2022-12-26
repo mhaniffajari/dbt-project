@@ -10,6 +10,9 @@ models:
           - not_null
 
   - name: stg_customers
+    tests:
+    - dbt_utils.equal_rowcount:
+        compare_model: dbt-tutorial.jaffle_shop.customers
     description: This table contains information of customer information
     columns:
       - name: customer_id
@@ -28,9 +31,11 @@ models:
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+          - dbt_utils.not_null_proportion:
+              at_least: 0.95
       - name: customer_id
         tests:
           - not_null
-          - relationships:
+          - dbt_utils.relationships_where:
               to: ref('stg_customers')
               field: customer_id
